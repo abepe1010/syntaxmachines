@@ -1,4 +1,4 @@
-basics and foundations
+foundations
 
 In this document I will discuss the foundations of working with automata in Wolfram. If not familiar with concepts such as alphabets, strings, languages and conditions, then it's worth having a look at this concept in this repository, following the path syntaxmachines/preliminary. Some resources will be listed in the readme document, such as books and articles (in the future).
 
