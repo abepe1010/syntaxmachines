@@ -6,14 +6,12 @@ A = (Q,∑,𝜹,q0,F)
 
 Q: A finite set of states. Informally, places the automaton could be at.
 
-∑: The alphabet we're working with. The most common ones are (a,b) or (0,1), this last one being binary, the one used by computers and one of the most efficient since Huffman proved that it 
-satisfies the Kraft's inequality with a strict equality.
+∑: The alphabet we're working with. The most common ones are (a,b) or (0,1), this last being binary, the language used by computers and one of the most efficients since it satisfies the 
+Kraft's inequality with a strict equality.
 
 𝜹: A transition function. It's defined with this scheme 𝜹: Qx∑ -> Q. In words, 𝜹 works as a function (like a black box, as introduced in most mathematical courses) that takes a state, namely 
-the one we're currently at; and a symbol of the alphabet, hopefully the one that is yet to process in a string. The output of that "black box" is a state of the automaton, which could be 
-the same one, or a different one.
-This function can be extended, without loss of generality, to strings. In this case, instead of processing just a symbol, a whole string can be processed, and the output is the result of 
-following the symbols one by one.
+the one we're currently at; and a symbol of the alphabet, hopefully the one that is yet to be processed in a string. The output of that "black box" is a state of the automaton.
+This function can be extended, without loss of generality, to strings. In this case, a whole string can be processed and the output is the result of processing its symbols one by one.
 
 q0: (Note that 0 is commonly subscripted) It is the state in which the automata stays before processing any symbol. It's commonly associated with 𝜆, since it's a string of length 0. Of 
 course, q0 ∈ Q.
@@ -21,7 +19,7 @@ course, q0 ∈ Q.
 F: A set of final or accepting states. If after processing a string, the state the automaton is located at is an element of F, then that string is accepted by the automaton, hence it's 
 accepted by the language. Again, F ⊆ Q.
 
-Why this automaton includes the word "deterministic" in its name?
+Why does this automaton include the word "deterministic" in its name?
 It's due to the fact that after processing a sequence of inputs, the automaton is in a single state (non-deterministic automata present the difference that they can be at many states at 
 once). Hence, after processing each input, there is one and only one state to which the automaton can transition from its current state.
 
