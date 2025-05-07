@@ -1,0 +1,13 @@
+basics and foundations
+
+In this document I will discuss the foundations of working with automata in Wolfram. If not familiar with concepts such as alphabets, strings, languages and conditions, then it's worth having a look at this concept in this repository, following the path syntaxmachines/preliminary. Some resources will be listed in the readme document, such as books and articles (in the future).
+
+If you're reading this, then it's assumed that you're familiar with how an automaton works and why it's important (necessary) to implement algorithms on a high level language and "let the computer do the work".
+
+Let's start with some notation and formalism:
+
+When we define an automaton, we do it following this notation:
+
+A = (Q,∑,𝜹,q0,F)
+
+In Wolfram I will work with automata following the same notation, using lists. The use of lists and nested lists is paramount for utilising the algorithms I will present later on. Working with lists can get really messy, that's why many programs might seem to be well programmed (correct logic, they solve what they intend to, etc.) but the output is wrong. It will happen to all of us and don't expect any better coding on my part. If you spot a mistake or have a suggestion, please email me at abarper2@upv.edu.es and I will be willingly receiving and thanking your contribution :)
