@@ -14,8 +14,6 @@ When we define an automaton, we do it following this notation:
 A = (Q,∑,𝜹,q0,F)
 
 In Wolfram I will work with automata following the same notation, using lists. The use of lists and nested lists is paramount for utilising the 
-algorithms I will present later on. Working 
-with lists can get really messy, that's why many programs might seem to be well programmed (correct logic, they solve what they intend to, etc.) 
-but the output is wrong. It will happen to 
-all of us and don't expect any better coding on my part. If you spot a mistake or have a suggestion, please email me at abarper2@upv.edu.es and I 
-will be willingly receiving and thanking your contribution :)
+algorithms I will present later on. Working with lists can get really messy, that's why many programs might seem to be well programmed (correct 
+logic, they solve what they intend to, etc.) but the output is wrong. It has happened to anyone and don't expect any better coding on my part. 
+If you spot a mistake or have a suggestion, please email me at abarper2@upv.edu.es and I will be willingly receiving and thanking your contribution :)
