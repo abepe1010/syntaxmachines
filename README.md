@@ -1,6 +1,6 @@
 # syntaxmachines
 
-This repository covers the computational (not graphical) part of working with automata. Here range from algorithms of minimisation of automata to synthesis of automata out of a regular expression, and much more.
+This repository covers the computational (non-graphical) part of working with automata. Here range from algorithms of minimisation of automata to synthesis of automata out of a regular expression, and much more.
 
 The language used in this context is Wolfram (Mathematica), due to the convenience of working with nested lists (as discussed later). How the automata will be represented in this language and many more abstractions can be found on "foundations.txt".
 
