@@ -1,0 +1,328 @@
+(* Content-type: application/vnd.wolfram.mathematica *)
+
+(*** Wolfram Notebook File ***)
+(* http://www.wolfram.com/nb *)
+
+(* CreatedBy='Mathematica 13.2' *)
+
+(*CacheID: 234*)
+(* Internal cache information:
+NotebookFileLineBreakTest
+NotebookFileLineBreakTest
+NotebookDataPosition[       158,          7]
+NotebookDataLength[     11934,        318]
+NotebookOptionsPosition[     10646,        286]
+NotebookOutlinePosition[     11166,        305]
+CellTagsIndexPosition[     11123,        302]
+WindowFrame->Normal*)
+
+(* Beginning of Notebook Content *)
+Notebook[{
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CurrentValue", "[", 
+   RowBox[{
+    RowBox[{"EvaluationNotebook", "[", "]"}], ",", "DefaultNaturalLanguage"}],
+    "]"}], "=", "\"\<English\>\""}]], "Input",
+ CellChangeTimes->{{3.956073509830599*^9, 
+  3.9560735192476788`*^9}},ExpressionUUID->"a4f1d0bf-bbf8-478c-af08-\
+111d971a2bbe"],
+
+Cell[CellGroupData[{
+
+Cell["Necessary programs for working with automata", "Subsection",
+ CellChangeTimes->{{3.956072627030163*^9, 3.956072644294786*^9}, {
+  3.95607269896006*^9, 3.956072718686141*^9}, {3.9560734997954597`*^9, 
+  3.956073507297175*^9}},ExpressionUUID->"f3117d03-13f2-4fe5-b0dd-\
+21cd18c3d1e5"],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The following program outputs the kind of the given automaton (Deterministic \
+// Non - Deterministic // Lambda)\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.956072720614491*^9, 3.9560727778418703`*^9}, {
+   3.9560731706867*^9, 3.956073231956893*^9}, {3.9560733742526693`*^9, 
+   3.9560733901550426`*^9}, 
+   3.9560737393110657`*^9},ExpressionUUID->"5e2372e2-d6d6-4701-b21f-\
+e51985b1bf63"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"KoA", "[", "A_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"transitions", "=", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "3", "]"}], "]"}]}], ",", "transnolambda", ",", "i", ",",
+       "j"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"transnolambda", "=", " ", 
+      RowBox[{"Select", "[", 
+       RowBox[{"transitions", ",", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "=!=", 
+          RowBox[{"{", "}"}]}], "&"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+     
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Length", "[", "transitions", "]"}], ">", 
+        RowBox[{"Length", "[", "transnolambda", "]"}]}], ",", 
+       RowBox[{"Return", " ", "[", "\"\<Lambda-Automaton\>\"", "]"}]}], "]"}],
+      ";", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", 
+       RowBox[{"i", "<=", 
+        RowBox[{
+         RowBox[{"Length", "[", "transnolambda", "]"}], "-", "1"}]}], ",", 
+       RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"For", "[", 
+         RowBox[{
+          RowBox[{"j", "=", 
+           RowBox[{"i", "+", "1"}]}], ",", 
+          RowBox[{"j", "<=", 
+           RowBox[{"Length", "[", "transnolambda", "]"}]}], ",", 
+          RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+          RowBox[{"If", "[", 
+           RowBox[{
+            RowBox[{
+             RowBox[{
+              RowBox[{"transnolambda", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "1"}], "]"}], "]"}], "==", 
+              RowBox[{"transnolambda", "[", 
+               RowBox[{"[", 
+                RowBox[{"j", ",", "1"}], "]"}], "]"}]}], "&&", 
+             RowBox[{
+              RowBox[{"transnolambda", "[", 
+               RowBox[{"[", 
+                RowBox[{"i", ",", "2"}], "]"}], "]"}], "==", 
+              RowBox[{"transnolambda", "[", 
+               RowBox[{"[", 
+                RowBox[{"j", ",", "2"}], "]"}], "]"}]}]}], ",", 
+            RowBox[{
+            "Return", "[", "\"\<Non-Deterministic Automaton\>\"", "]"}]}], 
+           "]"}]}], "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"Return", "[", "\"\<Deterministic Automaton\>\"", "]"}], ";"}]}],
+    "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.956072838301998*^9, 3.956072957402391*^9}, {
+  3.9560730424432697`*^9, 3.956073061102536*^9}},
+ CellLabel->
+  "In[132]:=",ExpressionUUID->"0dc7cdff-f574-4fa3-b42f-05fa544c5a7d"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+A for more useful program is the one presented below < IsDeterministic > \
+since it' ll be used in later programs that require a DFA . If true, the \
+given automaton is Deterministic and hopefully the program can continue with \
+its execution. If not, a different Deterministic Automaton must be introduced.\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.9560738740426397`*^9, 
+  3.956073993855732*^9}},ExpressionUUID->"b33210ff-609b-4c39-8665-\
+8f06354d0c55"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"IsDeterministic", "[", "A_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"transitions", "=", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "3", "]"}], "]"}]}], ",", "transnolambda", ",", "i", ",",
+       "j"}], "}"}], ",", "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"transnolambda", " ", "=", " ", 
+      RowBox[{"Select", "[", 
+       RowBox[{"transitions", ",", " ", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"#", "[", 
+           RowBox[{"[", "2", "]"}], "]"}], "=!=", 
+          RowBox[{"{", "}"}]}], "&"}]}], "]"}]}], ";", "\[IndentingNewLine]", 
+     
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{
+        RowBox[{"Length", "[", "transitions", "]"}], ">", 
+        RowBox[{"Length", "[", "transnolambda", "]"}]}], ",", 
+       RowBox[{"Return", " ", "[", "False", "]"}]}], "]"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", 
+       RowBox[{"i", "<=", 
+        RowBox[{
+         RowBox[{"Length", "[", "transnolambda", "]"}], "-", "1"}]}], ",", 
+       RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+       RowBox[{"For", "[", 
+        RowBox[{
+         RowBox[{"j", "=", 
+          RowBox[{"i", "+", "1"}]}], ",", 
+         RowBox[{"j", "<=", 
+          RowBox[{"Length", "[", "transnolambda", "]"}]}], ",", 
+         RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{
+             RowBox[{"transnolambda", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "1"}], "]"}], "]"}], "==", 
+             RowBox[{"transnolambda", "[", 
+              RowBox[{"[", 
+               RowBox[{"j", ",", "1"}], "]"}], "]"}]}], "&&", 
+            RowBox[{
+             RowBox[{"transnolambda", "[", 
+              RowBox[{"[", 
+               RowBox[{"i", ",", "2"}], "]"}], "]"}], "==", 
+             RowBox[{"transnolambda", "[", 
+              RowBox[{"[", 
+               RowBox[{"j", ",", "2"}], "]"}], "]"}]}]}], ",", 
+           RowBox[{"Return", "[", "False", "]"}]}], " ", "]"}]}], "]"}]}], 
+      "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Return", "[", "True", "]"}], ";"}]}], "\[IndentingNewLine]", 
+   "]"}]}]], "Input",
+ CellChangeTimes->{{3.95607401963386*^9, 3.956074054008256*^9}},
+ CellLabel->
+  "In[143]:=",ExpressionUUID->"9cb624c1-8cb7-48f7-928f-d2ec35314f1b"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The following program determines whether the given automaton is a completely \
+specified one or not . A completely specified automaton is the one that, for \
+each state and each symbol, there\[CloseCurlyQuote]s only one possible \
+transition (we assume that we\[CloseCurlyQuote]re working with a DFA or \
+Deterministic Finite Automaton then)\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.956073564220414*^9, 3.956073750466341*^9}, {
+  3.956074115921474*^9, 3.9560741168442698`*^9}, {3.9560747201570587`*^9, 
+  3.956074735941902*^9}},ExpressionUUID->"df3d70df-bf5f-487e-8ba6-\
+2af1ca3cd0dc"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"CompleSpecified", "[", "A_", "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"states", " ", "=", " ", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "1", "]"}], "]"}]}], ",", 
+      RowBox[{"alphabet", " ", "=", " ", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "2", "]"}], "]"}]}], ",", 
+      RowBox[{"transitions", "=", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "3", "]"}], "]"}]}], ",", "i", ",", "j"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"Not", "[", 
+        RowBox[{"IsDeterministic", "[", "A", "]"}], "]"}], ",", 
+       RowBox[{"Return", "[", "\"\<It's not Deterministic\>\"", "]"}]}], 
+      "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", 
+       RowBox[{"i", "<=", 
+        RowBox[{"Length", "[", "states", "]"}]}], ",", 
+       RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+       RowBox[{
+        RowBox[{"For", "[", 
+         RowBox[{
+          RowBox[{"j", "=", "1"}], ",", 
+          RowBox[{"j", "<=", 
+           RowBox[{"Length", "[", "alphabet", "]"}]}], ",", 
+          RowBox[{"j", "++"}], ",", "\[IndentingNewLine]", "\t", 
+          RowBox[{
+           RowBox[{"If", "[", 
+            RowBox[{
+             RowBox[{
+              RowBox[{"Length", "[", 
+               RowBox[{"Select", "[", 
+                RowBox[{"transitions", ",", " ", 
+                 RowBox[{
+                  RowBox[{
+                   RowBox[{
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "1", "]"}], "]"}], "==", 
+                    RowBox[{"states", "[", 
+                    RowBox[{"[", "i", "]"}], "]"}]}], " ", "&&", " ", 
+                   RowBox[{
+                    RowBox[{"#", "[", 
+                    RowBox[{"[", "2", "]"}], "]"}], "==", 
+                    RowBox[{"alphabet", "[", 
+                    RowBox[{"[", "j", "]"}], "]"}]}]}], " ", "&"}]}], "]"}], 
+               "]"}], "!=", "1"}], ",", 
+             RowBox[{"Return", " ", "[", "False", "]"}]}], "]"}], ";"}]}], 
+         "\[IndentingNewLine]", "]"}], ";"}]}], "\[IndentingNewLine]", "]"}], 
+     ";", "\[IndentingNewLine]", 
+     RowBox[{"Return", " ", "[", "True", "]"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.956073754085476*^9, 3.956073858675947*^9}, {
+  3.956074149874406*^9, 3.956074203459942*^9}, {3.956074746660359*^9, 
+  3.956074747499329*^9}, {3.956074810043954*^9, 3.956074832038766*^9}},
+ CellLabel->
+  "In[157]:=",ExpressionUUID->"59a26c5c-732d-41c2-a63a-d48a5b4c2881"]
+}, Open  ]]
+}, Open  ]]
+},
+WindowSize->{1512, 862},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
+DefaultNaturalLanguage->"English",
+SpellingDictionaries->{"CorrectWords"->{
+ "program", "The", "following", "Necessary"}},
+FrontEndVersion->"13.2 para Mac OS X ARM (64-bit) (November 18, 2022)",
+StyleDefinitions->"Default.nb",
+ExpressionUUID->"0b2d408b-f46c-4bd5-b89b-2d95adc112a4"
+]
+(* End of Notebook Content *)
+
+(* Internal cache information *)
+(*CellTagsOutline
+CellTagsIndex->{}
+*)
+(*CellTagsIndex
+CellTagsIndex->{}
+*)
+(*NotebookFileOutline
+Notebook[{
+Cell[558, 20, 321, 8, 44, "Input",ExpressionUUID->"a4f1d0bf-bbf8-478c-af08-111d971a2bbe"],
+Cell[CellGroupData[{
+Cell[904, 32, 288, 4, 54, "Subsection",ExpressionUUID->"f3117d03-13f2-4fe5-b0dd-21cd18c3d1e5"],
+Cell[CellGroupData[{
+Cell[1217, 40, 400, 8, 45, "Subsubsection",ExpressionUUID->"5e2372e2-d6d6-4701-b21f-e51985b1bf63"],
+Cell[1620, 50, 2677, 69, 304, "Input",ExpressionUUID->"0dc7cdff-f574-4fa3-b42f-05fa544c5a7d"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[4334, 124, 468, 8, 71, "Subsubsection",ExpressionUUID->"b33210ff-609b-4c39-8665-8f06354d0c55"],
+Cell[4805, 134, 2499, 65, 304, "Input",ExpressionUUID->"9cb624c1-8cb7-48f7-928f-d2ec35314f1b"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[7341, 204, 599, 10, 71, "Subsubsection",ExpressionUUID->"df3d70df-bf5f-487e-8ba6-2af1ca3cd0dc"],
+Cell[7943, 216, 2675, 66, 289, "Input",ExpressionUUID->"59a26c5c-732d-41c2-a63a-d48a5b4c2881"]
+}, Open  ]]
+}, Open  ]]
+}
+]
+*)
+
+(* End of internal cache information *)
+
