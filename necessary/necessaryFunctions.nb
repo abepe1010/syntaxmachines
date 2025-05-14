@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     15859,        419]
-NotebookOptionsPosition[     14338,        383]
-NotebookOutlinePosition[     14857,        402]
-CellTagsIndexPosition[     14814,        399]
+NotebookDataLength[     24605,        654]
+NotebookOptionsPosition[     21799,        598]
+NotebookOutlinePosition[     22318,        617]
+CellTagsIndexPosition[     22275,        614]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -293,7 +293,7 @@ determines whether a string is accepted by a DFA or not .\
 
 Cell[BoxData[
  RowBox[{
-  RowBox[{"StringAccept", "[", 
+  RowBox[{"StringAcceptDFA", "[", 
    RowBox[{"A_", ",", "x_"}], "]"}], ":=", 
   RowBox[{"Module", "[", 
    RowBox[{
@@ -375,14 +375,229 @@ Cell[BoxData[
        RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";"}]}], 
    "\[IndentingNewLine]", "]"}]}]], "Input",
  CellChangeTimes->{{3.956248323024457*^9, 3.9562484910193787`*^9}, {
-  3.956248524744426*^9, 
-  3.956248538795169*^9}},ExpressionUUID->"443297c6-dabd-4a06-985a-\
-15a1ec838bc4"]
+  3.956248524744426*^9, 3.956248538795169*^9}, {3.956250329291971*^9, 
+  3.9562503295696697`*^9}},
+ CellLabel->"In[11]:=",ExpressionUUID->"443297c6-dabd-4a06-985a-15a1ec838bc4"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Next up, we' ve got a function that' s fundamental for the implementation of \
+the StringAccept version for NFA . For this program the input is an \
+automaton, a set of states and a symbol . It' ll be much clearer in the \
+StringAcceptNFA routine.\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.9562498962586813`*^9, 
+  3.956250014495113*^9}},ExpressionUUID->"be64ba5a-b08a-4a4e-9a33-\
+465fb9d44c28"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"Aux", "[", 
+   RowBox[{"A_", ",", "Conj_", ",", "s_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"transitions", "=", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "3", "]"}], "]"}]}], ",", "tr"}], "}"}], ",", 
+    "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{"tr", "=", 
+      RowBox[{"{", "}"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"AppendTo", "[", 
+      RowBox[{"tr", ",", 
+       RowBox[{"Select", "[", 
+        RowBox[{"transitions", ",", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"MemberQ", "[", 
+            RowBox[{"Conj", ",", 
+             RowBox[{"#", "[", 
+              RowBox[{"[", "1", "]"}], "]"}]}], "]"}], "&&", 
+           RowBox[{
+            RowBox[{"#", "[", 
+             RowBox[{"[", "2", "]"}], "]"}], "==", "s"}]}], "&"}]}], "]"}]}], 
+      "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"tr", "=", 
+      RowBox[{"Flatten", "[", 
+       RowBox[{"tr", ",", "1"}], "]"}]}], ";", "\[IndentingNewLine]", 
+     RowBox[{"Return", "[", 
+      RowBox[{"Union", "[", 
+       RowBox[{"tr", "[", 
+        RowBox[{"[", 
+         RowBox[{"All", ",", "3"}], "]"}], "]"}], "]"}], "]"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.956250026124908*^9, 3.956250057876292*^9}},
+ CellLabel->"In[13]:=",ExpressionUUID->"18930dc0-4f1b-4b04-9ddb-a1de1a3f205a"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+Finally, we present the function that determines whether a string is accepted \
+by a Non - Deterministic Finite Automaton or not.\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.956250208782076*^9, 
+  3.95625031045543*^9}},ExpressionUUID->"5c4d2282-975a-4a7b-8033-\
+b808ba60ce21"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"StringAcceptNFA", "[", 
+   RowBox[{"A_", ",", "x_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{"i", ",", 
+      RowBox[{"Conj", "=", 
+       RowBox[{"{", 
+        RowBox[{"A", "[", 
+         RowBox[{"[", "4", "]"}], "]"}], "}"}]}], ",", " ", 
+      RowBox[{"FinalE", "=", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "5", "]"}], "]"}]}]}], "}"}], ",", "\[IndentingNewLine]",
+     "\[IndentingNewLine]", 
+    RowBox[{
+     RowBox[{
+      RowBox[{"For", "[", 
+       RowBox[{
+        RowBox[{"i", "=", "1"}], ",", 
+        RowBox[{"i", "<=", 
+         RowBox[{"Length", "[", "x", "]"}]}], ",", 
+        RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", 
+        RowBox[{
+         RowBox[{
+          RowBox[{"Print", "[", "Conj", "]"}], ";"}], 
+         RowBox[{"(*", 
+          RowBox[{
+          "Useful", " ", "to", " ", "see", " ", "a", " ", "trace", " ", "of", 
+           " ", "the", " ", "execution"}], "*)"}], ";", "\[IndentingNewLine]", 
+         RowBox[{"If", "[", 
+          RowBox[{
+           RowBox[{
+            RowBox[{"Length", "[", "Conj", "]"}], "==", "0"}], ",", 
+           RowBox[{"Return", " ", "[", "False", "]"}]}], "]"}], ";", 
+         RowBox[{"Conj", " ", "=", " ", 
+          RowBox[{"Aux", "[", 
+           RowBox[{"A", ",", "Conj", ",", 
+            RowBox[{"x", "[", 
+             RowBox[{"[", "i", "]"}], "]"}]}], "]"}]}], ";"}]}], 
+       "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+      RowBox[{"Print", "[", "Conj", "]"}], ";"}], 
+     RowBox[{"(*", 
+      RowBox[{
+      "Prints", " ", "the", " ", "final", " ", "state", " ", "after", " ", 
+       "processing", " ", "the", " ", "whole", " ", "string"}], "*)"}], ";", 
+     "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"SubsetQ", "[", 
+        RowBox[{"FinalE", ",", "Conj"}], "]"}], ",", 
+       RowBox[{"Return", " ", "[", "True", "]"}], ",", 
+       RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.956250336054167*^9, 3.9562503675149107`*^9}, {
+  3.956250398556616*^9, 
+  3.956250517157042*^9}},ExpressionUUID->"35f9e1d3-edf6-48dc-94e4-\
+81fa5ebd53c7"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"StringAcceptNFA", "[", 
+  RowBox[{
+   RowBox[{"{", 
+    RowBox[{
+     RowBox[{"{", 
+      RowBox[{"1", ",", "2", ",", "3"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{"a", ",", "b"}], "}"}], ",", 
+     RowBox[{"{", 
+      RowBox[{
+       RowBox[{"{", 
+        RowBox[{"1", ",", "a", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "a", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"1", ",", "b", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "a", ",", "3"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "a", ",", "1"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"2", ",", "b", ",", "3"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "a", ",", "2"}], "}"}], ",", 
+       RowBox[{"{", 
+        RowBox[{"3", ",", "b", ",", "3"}], "}"}]}], "}"}], ",", "1", ",", 
+     RowBox[{"{", 
+      RowBox[{"1", ",", "2"}], "}"}]}], "}"}], ",", 
+   RowBox[{"{", 
+    RowBox[{"a", ",", "b", ",", "b", ",", "a", ",", "b"}], "}"}]}], 
+  "]"}]], "Input",
+ CellChangeTimes->{{3.9562503834191723`*^9, 3.956250390823861*^9}},
+ CellLabel->"In[20]:=",ExpressionUUID->"17344b2f-15ba-473c-8045-2cbb0518470a"],
+
+Cell[CellGroupData[{
+
+Cell[BoxData[
+ RowBox[{"{", "1", "}"}]], "Print",
+ CellChangeTimes->{3.956250432384839*^9, 3.9562504759209213`*^9},
+ CellLabel->
+  "Durante la evaluaci\[OAcute]n de \
+In[20]:=",ExpressionUUID->"93056ffe-7ac7-4a08-ab75-fb2a71885210"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"1", ",", "2"}], "}"}]], "Print",
+ CellChangeTimes->{3.956250432384839*^9, 3.956250475922948*^9},
+ CellLabel->
+  "Durante la evaluaci\[OAcute]n de \
+In[20]:=",ExpressionUUID->"7fcc9ddb-6547-4a66-b397-5e69dc5ed423"],
+
+Cell[BoxData[
+ RowBox[{"{", 
+  RowBox[{"2", ",", "3"}], "}"}]], "Print",
+ CellChangeTimes->{3.956250432384839*^9, 3.956250475924947*^9},
+ CellLabel->
+  "Durante la evaluaci\[OAcute]n de \
+In[20]:=",ExpressionUUID->"906297bb-9d1d-4e64-aad4-207a7a7a17ee"],
+
+Cell[BoxData[
+ RowBox[{"{", "3", "}"}]], "Print",
+ CellChangeTimes->{3.956250432384839*^9, 3.9562504759266987`*^9},
+ CellLabel->
+  "Durante la evaluaci\[OAcute]n de \
+In[20]:=",ExpressionUUID->"7534bb13-8345-4c64-a961-987a35d3d565"],
+
+Cell[BoxData[
+ RowBox[{"{", "2", "}"}]], "Print",
+ CellChangeTimes->{3.956250432384839*^9, 3.956250475928389*^9},
+ CellLabel->
+  "Durante la evaluaci\[OAcute]n de \
+In[20]:=",ExpressionUUID->"0663499f-cd47-483f-a756-47dd2ac35458"],
+
+Cell[BoxData[
+ RowBox[{"{", "3", "}"}]], "Print",
+ CellChangeTimes->{3.956250432384839*^9, 3.9562504759303083`*^9},
+ CellLabel->
+  "Durante la evaluaci\[OAcute]n de \
+In[20]:=",ExpressionUUID->"be9f2183-f24f-46a7-8cbc-1aee7130efa5"]
+}, Open  ]],
+
+Cell[BoxData["False"], "Output",
+ CellChangeTimes->{{3.9562503915365753`*^9, 3.956250432392445*^9}, 
+   3.956250475932122*^9},
+ CellLabel->"Out[20]=",ExpressionUUID->"d1b9f619-922b-4654-98bc-40e75f3e406a"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 },
 WindowSize->{756, 862},
-WindowMargins->{{Automatic, 0}, {Automatic, 0}},
+WindowMargins->{{0, Automatic}, {Automatic, 0}},
 DefaultNaturalLanguage->"English",
 SpellingDictionaries->{"CorrectWords"->{
  "program", "The", "following", "Necessary"}},
@@ -418,7 +633,27 @@ Cell[7933, 214, 2670, 65, 367, "Input",ExpressionUUID->"59a26c5c-732d-41c2-a63a-
 }, Open  ]],
 Cell[CellGroupData[{
 Cell[10640, 284, 340, 7, 71, "Subsubsection",ExpressionUUID->"be5fa517-e35c-498f-a0ad-366e4650fb7f"],
-Cell[10983, 293, 3327, 86, 424, "Input",ExpressionUUID->"443297c6-dabd-4a06-985a-15a1ec838bc4"]
+Cell[10983, 293, 3400, 86, 424, "Input",ExpressionUUID->"443297c6-dabd-4a06-985a-15a1ec838bc4"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[14420, 384, 408, 8, 97, "Subsubsection",ExpressionUUID->"be64ba5a-b08a-4a4e-9a33-465fb9d44c28"],
+Cell[14831, 394, 1422, 39, 196, "Input",ExpressionUUID->"18930dc0-4f1b-4b04-9ddb-a1de1a3f205a"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[16290, 438, 287, 6, 71, "Subsubsection",ExpressionUUID->"5c4d2282-975a-4a7b-8033-b808ba60ce21"],
+Cell[16580, 446, 2245, 58, 289, "Input",ExpressionUUID->"35f9e1d3-edf6-48dc-94e4-81fa5ebd53c7"],
+Cell[CellGroupData[{
+Cell[18850, 508, 1217, 33, 73, "Input",ExpressionUUID->"17344b2f-15ba-473c-8045-2cbb0518470a"],
+Cell[CellGroupData[{
+Cell[20092, 545, 232, 5, 24, "Print",ExpressionUUID->"93056ffe-7ac7-4a08-ab75-fb2a71885210"],
+Cell[20327, 552, 253, 6, 24, "Print",ExpressionUUID->"7fcc9ddb-6547-4a66-b397-5e69dc5ed423"],
+Cell[20583, 560, 253, 6, 24, "Print",ExpressionUUID->"906297bb-9d1d-4e64-aad4-207a7a7a17ee"],
+Cell[20839, 568, 232, 5, 24, "Print",ExpressionUUID->"7534bb13-8345-4c64-a961-987a35d3d565"],
+Cell[21074, 575, 230, 5, 24, "Print",ExpressionUUID->"0663499f-cd47-483f-a756-47dd2ac35458"],
+Cell[21307, 582, 232, 5, 24, "Print",ExpressionUUID->"be9f2183-f24f-46a7-8cbc-1aee7130efa5"]
+}, Open  ]],
+Cell[21554, 590, 205, 3, 57, "Output",ExpressionUUID->"d1b9f619-922b-4654-98bc-40e75f3e406a"]
+}, Open  ]]
 }, Open  ]]
 }, Open  ]]
 }
