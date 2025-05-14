@@ -1,1 +1,1 @@
-in this folder, you'll find notebooks containing necessary functions for further working with automata.
+in this folder, you'll find notebooks containing necessary functions for further work with automata.
