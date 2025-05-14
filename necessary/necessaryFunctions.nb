@@ -10,10 +10,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[       158,          7]
-NotebookDataLength[     11934,        318]
-NotebookOptionsPosition[     10646,        286]
-NotebookOutlinePosition[     11166,        305]
-CellTagsIndexPosition[     11123,        302]
+NotebookDataLength[     15859,        419]
+NotebookOptionsPosition[     14338,        383]
+NotebookOutlinePosition[     14857,        402]
+CellTagsIndexPosition[     14814,        399]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -116,8 +116,7 @@ Cell[BoxData[
     "\[IndentingNewLine]", "]"}]}]], "Input",
  CellChangeTimes->{{3.956072838301998*^9, 3.956072957402391*^9}, {
   3.9560730424432697`*^9, 3.956073061102536*^9}},
- CellLabel->
-  "In[132]:=",ExpressionUUID->"0dc7cdff-f574-4fa3-b42f-05fa544c5a7d"]
+ CellLabel->"In[3]:=",ExpressionUUID->"0dc7cdff-f574-4fa3-b42f-05fa544c5a7d"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -196,8 +195,7 @@ Cell[BoxData[
      RowBox[{"Return", "[", "True", "]"}], ";"}]}], "\[IndentingNewLine]", 
    "]"}]}]], "Input",
  CellChangeTimes->{{3.95607401963386*^9, 3.956074054008256*^9}},
- CellLabel->
-  "In[143]:=",ExpressionUUID->"9cb624c1-8cb7-48f7-928f-d2ec35314f1b"]
+ CellLabel->"In[2]:=",ExpressionUUID->"9cb624c1-8cb7-48f7-928f-d2ec35314f1b"]
 }, Open  ]],
 
 Cell[CellGroupData[{
@@ -279,13 +277,112 @@ Cell[BoxData[
  CellChangeTimes->{{3.956073754085476*^9, 3.956073858675947*^9}, {
   3.956074149874406*^9, 3.956074203459942*^9}, {3.956074746660359*^9, 
   3.956074747499329*^9}, {3.956074810043954*^9, 3.956074832038766*^9}},
- CellLabel->
-  "In[157]:=",ExpressionUUID->"59a26c5c-732d-41c2-a63a-d48a5b4c2881"]
+ CellLabel->"In[1]:=",ExpressionUUID->"59a26c5c-732d-41c2-a63a-d48a5b4c2881"]
+}, Open  ]],
+
+Cell[CellGroupData[{
+
+Cell["\<\
+The next function is paramount for future algorithms . It' s the one that \
+determines whether a string is accepted by a DFA or not .\
+\>", "Subsubsection",
+ CellChangeTimes->{{3.956248194528572*^9, 3.956248307718088*^9}, {
+  3.95624837760174*^9, 
+  3.956248383838168*^9}},ExpressionUUID->"be5fa517-e35c-498f-a0ad-\
+366e4650fb7f"],
+
+Cell[BoxData[
+ RowBox[{
+  RowBox[{"StringAccept", "[", 
+   RowBox[{"A_", ",", "x_"}], "]"}], ":=", 
+  RowBox[{"Module", "[", 
+   RowBox[{
+    RowBox[{"{", 
+     RowBox[{
+      RowBox[{"transitions", "=", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "3", "]"}], "]"}]}], ",", 
+      RowBox[{"alphabet", "=", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "2", "]"}], "]"}]}], ",", 
+      RowBox[{"InitialE", "=", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "4", "]"}], "]"}]}], ",", 
+      RowBox[{"FinalE", "=", 
+       RowBox[{"A", "[", 
+        RowBox[{"[", "5", "]"}], "]"}]}], ",", "possibleTrans", ",", "i"}], 
+     "}"}], ",", "\[IndentingNewLine]", "\t", 
+    RowBox[{
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"Not", "[", 
+        RowBox[{"IsDeterministic", "[", "A", "]"}], "]"}], ",", 
+       RowBox[{"Return", "[", "\"\<It's not deterministic\>\"", "]"}]}], 
+      "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"Not", "[", 
+        RowBox[{"SubsetQ", "[", 
+         RowBox[{"alphabet", ",", 
+          RowBox[{"Union", "[", "x", "]"}]}], "]"}], "]"}], ",", 
+       RowBox[{"Return", "[", "\"\<The alphabets don't match\>\"", "]"}]}], 
+      "]"}], ";", "\[IndentingNewLine]", "\[IndentingNewLine]", 
+     RowBox[{"For", "[", 
+      RowBox[{
+       RowBox[{"i", "=", "1"}], ",", " ", 
+       RowBox[{"i", "<=", 
+        RowBox[{"Length", "[", "x", "]"}]}], ",", 
+       RowBox[{"i", "++"}], ",", "\[IndentingNewLine]", "\t", 
+       RowBox[{
+        RowBox[{
+         RowBox[{"possibleTrans", "=", 
+          RowBox[{"Select", "[", 
+           RowBox[{"transitions", ",", 
+            RowBox[{
+             RowBox[{
+              RowBox[{
+               RowBox[{"#", "[", 
+                RowBox[{"[", "1", "]"}], "]"}], "==", "InitialE"}], " ", "&&",
+               " ", 
+              RowBox[{
+               RowBox[{"#", "[", 
+                RowBox[{"[", "2", "]"}], "]"}], "==", 
+               RowBox[{"x", "[", 
+                RowBox[{"[", "i", "]"}], "]"}]}]}], "&"}]}], "]"}]}], ";", 
+         "\[IndentingNewLine]", "\t", 
+         RowBox[{"Print", "[", "possibleTrans", "]"}], ";"}], 
+        RowBox[{"(*", 
+         RowBox[{
+         "Useful", " ", "to", " ", "see", " ", "a", " ", "trace", " ", "of", 
+          " ", "the", " ", "execution"}], "*)"}], ";", "\[IndentingNewLine]", 
+        "\t", 
+        RowBox[{"If", "[", 
+         RowBox[{
+          RowBox[{
+           RowBox[{"Length", "[", "possibleTrans", "]"}], "==", "0"}], ",", 
+          RowBox[{"Return", " ", "[", "False", "]"}]}], "]"}], ";", 
+        "\[IndentingNewLine]", "\t", 
+        RowBox[{"InitialE", "=", 
+         RowBox[{"possibleTrans", "[", 
+          RowBox[{"[", 
+           RowBox[{"1", ",", "3"}], "]"}], "]"}]}], ";"}]}], 
+      "\[IndentingNewLine]", "]"}], ";", "\[IndentingNewLine]", 
+     RowBox[{"If", "[", 
+      RowBox[{
+       RowBox[{"MemberQ", "[", 
+        RowBox[{"FinalE", ",", "InitialE"}], "]"}], ",", 
+       RowBox[{"Return", "[", "True", "]"}], ",", 
+       RowBox[{"Return", "[", "False", "]"}]}], "]"}], ";"}]}], 
+   "\[IndentingNewLine]", "]"}]}]], "Input",
+ CellChangeTimes->{{3.956248323024457*^9, 3.9562484910193787`*^9}, {
+  3.956248524744426*^9, 
+  3.956248538795169*^9}},ExpressionUUID->"443297c6-dabd-4a06-985a-\
+15a1ec838bc4"]
 }, Open  ]]
 }, Open  ]]
 },
-WindowSize->{1512, 862},
-WindowMargins->{{0, Automatic}, {Automatic, 0}},
+WindowSize->{756, 862},
+WindowMargins->{{Automatic, 0}, {Automatic, 0}},
 DefaultNaturalLanguage->"English",
 SpellingDictionaries->{"CorrectWords"->{
  "program", "The", "following", "Necessary"}},
@@ -308,21 +405,23 @@ Cell[558, 20, 321, 8, 44, "Input",ExpressionUUID->"a4f1d0bf-bbf8-478c-af08-111d9
 Cell[CellGroupData[{
 Cell[904, 32, 288, 4, 54, "Subsection",ExpressionUUID->"f3117d03-13f2-4fe5-b0dd-21cd18c3d1e5"],
 Cell[CellGroupData[{
-Cell[1217, 40, 400, 8, 45, "Subsubsection",ExpressionUUID->"5e2372e2-d6d6-4701-b21f-e51985b1bf63"],
-Cell[1620, 50, 2677, 69, 304, "Input",ExpressionUUID->"0dc7cdff-f574-4fa3-b42f-05fa544c5a7d"]
+Cell[1217, 40, 400, 8, 71, "Subsubsection",ExpressionUUID->"5e2372e2-d6d6-4701-b21f-e51985b1bf63"],
+Cell[1620, 50, 2672, 68, 361, "Input",ExpressionUUID->"0dc7cdff-f574-4fa3-b42f-05fa544c5a7d"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[4334, 124, 468, 8, 71, "Subsubsection",ExpressionUUID->"b33210ff-609b-4c39-8665-8f06354d0c55"],
-Cell[4805, 134, 2499, 65, 304, "Input",ExpressionUUID->"9cb624c1-8cb7-48f7-928f-d2ec35314f1b"]
+Cell[4329, 123, 468, 8, 123, "Subsubsection",ExpressionUUID->"b33210ff-609b-4c39-8665-8f06354d0c55"],
+Cell[4800, 133, 2494, 64, 340, "Input",ExpressionUUID->"9cb624c1-8cb7-48f7-928f-d2ec35314f1b"]
 }, Open  ]],
 Cell[CellGroupData[{
-Cell[7341, 204, 599, 10, 71, "Subsubsection",ExpressionUUID->"df3d70df-bf5f-487e-8ba6-2af1ca3cd0dc"],
-Cell[7943, 216, 2675, 66, 289, "Input",ExpressionUUID->"59a26c5c-732d-41c2-a63a-d48a5b4c2881"]
+Cell[7331, 202, 599, 10, 123, "Subsubsection",ExpressionUUID->"df3d70df-bf5f-487e-8ba6-2af1ca3cd0dc"],
+Cell[7933, 214, 2670, 65, 367, "Input",ExpressionUUID->"59a26c5c-732d-41c2-a63a-d48a5b4c2881"]
+}, Open  ]],
+Cell[CellGroupData[{
+Cell[10640, 284, 340, 7, 71, "Subsubsection",ExpressionUUID->"be5fa517-e35c-498f-a0ad-366e4650fb7f"],
+Cell[10983, 293, 3327, 86, 424, "Input",ExpressionUUID->"443297c6-dabd-4a06-985a-15a1ec838bc4"]
 }, Open  ]]
 }, Open  ]]
 }
 ]
 *)
-
-(* End of internal cache information *)
 
